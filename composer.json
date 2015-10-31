@@ -2,6 +2,8 @@
     "version": "1.0.0",
     "name": "silvertipsoftware/laravel-test-helpers",
     "description": "Test helpers for Laravel",
+    "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Andre Sonnichsen",
@@ -15,6 +17,5 @@
         "psr-4": {
             "SilvertipSoftware\\LaravelTestHelpers\\": "src/"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
