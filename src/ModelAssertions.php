@@ -1,4 +1,4 @@
-<?php namespace Viewpoint\LaravelTestHelpers;
+<?php namespace SilvertipSoftware\LaravelTestHelpers;
 
 trait ModelAssertions {
 
