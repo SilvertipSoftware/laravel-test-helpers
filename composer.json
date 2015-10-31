@@ -1,0 +1,20 @@
+ {
+    "version": "1.0.0",
+    "name": "silvertipsoftware/laravel-test-helpers",
+    "description": "Test helpers for Laravel",
+    "authors": [
+        {
+            "name": "Andre Sonnichsen",
+            "email": "andre@silvertipsoftware.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "SilvertipSoftware\\LaravelTestHelpers\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
