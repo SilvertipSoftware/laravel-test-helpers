@@ -15,7 +15,7 @@ class ValidatorHelper {
         if ( ! static::$factory)
         {
             $translator = new Translator('en');
-            static::$factory = new Illuminate\Validation\Factory($translator);
+            static::$factory = new \Illuminate\Validation\Factory($translator);
             static::$factory->setPresenceVerifier( new DatabasePresenceVerifier( Eloquent::getConnectionResolver() ) );
         }
 
