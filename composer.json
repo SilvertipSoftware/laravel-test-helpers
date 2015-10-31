@@ -1,5 +1,4 @@
  {
-    "version": "1.0.0",
     "name": "silvertipsoftware/laravel-test-helpers",
     "description": "Test helpers for Laravel",
     "license": "MIT",
