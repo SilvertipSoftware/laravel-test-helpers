@@ -10,7 +10,7 @@ trait ModelAssertions {
     public function assertIsValid( $obj = NULL ) {
         if ( $obj == NULL )
             $obj = $this->model;
-        $this->assertTrue( $obj->isValid(), 'Model is invalid with: ' . $this->errors );
+        $this->assertTrue( $obj->isValid(), 'Model is invalid with: ' . $obj->errors );
     }
 
     public function assertIsInvalid( $obj = NULL ) {
