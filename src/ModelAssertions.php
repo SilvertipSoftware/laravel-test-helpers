@@ -7,6 +7,18 @@ trait ModelAssertions {
         $this->assertInstanceOf('\Illuminate\Database\Eloquent\Model', new $class() );
     }
 
+    public function assertIsValid( $obj = NULL ) {
+        if ( $obj == NULL )
+            $obj = $this->model;
+        $this->assertTrue( $obj->isValid(), 'Model is invalid with: ' . $this->errors );
+    }
+
+    public function assertIsInvalid( $obj = NULL ) {
+        if ( $obj == NULL )
+            $obj = $this->model;
+        $this->assertFalse( $obj->isValid(), 'Model should be invalid' );
+    }
+
     public function assertHasScope( $scope ) {
         $class = $this->getClassUnderTest();
         $this->assertTrue( method_exists($class, 'scope'.ucfirst($scope) ) );
@@ -36,14 +48,15 @@ trait ModelAssertions {
         if ( $obj == NULL) $obj = $this->model;
         $this->assertHasRelation($assoc,$obj);
         $ret = call_user_func(array($obj,$assoc));
-        $this->assertInstanceOf('\Illuminate\Database\Eloquent\Relations\HasMany', $ret);
+        $this->assertTrue($ret instanceof \Illuminate\Database\Eloquent\Relations\HasMany
+            || $ret instanceof \Illuminate\Database\Eloquent\Relations\MorphMany, $assoc . ' relation is not a one-to-many');
     }
 
     protected function assertHasOne($assoc, $obj = NULL) {
         if ( $obj == NULL) $obj = $this->model;
         $this->assertHasRelation($assoc,$obj);
         $ret = call_user_func(array($obj,$assoc));
-        $this->assertInstanceOf('\Illuminate\Database\Eloquent\Relations\HasOne', $ret);
+        $this->assertTrue($ret instanceof \Illuminate\Database\Eloquent\Relations\HasOne 
+            || $ret instanceof \Illuminate\Database\Eloquent\Relations\MorphOne, $assoc . ' relation is not a one-to-one');
     }
-
 }
