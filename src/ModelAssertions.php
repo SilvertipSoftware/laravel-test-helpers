@@ -32,21 +32,24 @@ trait ModelAssertions {
     }
 
     protected function assertHasRelation($assoc, $obj) {
-        $this->assertTrue( method_exists($obj, $assoc), 'Relation '.$assoc.' is not defined' );
+        $ret = method_exists($obj, $assoc);
+        if ( !$ret ) {
+           $clz = get_class($obj);
+           $ret = method_exists( $clz, 'hasDynamicMethod') && $clz::hasDynamicMethod($assoc);
+        }
+        $this->assertTrue( $ret, 'Relation '.$assoc.' is not defined' );
     }
 
     protected function assertBelongsTo($assoc, $obj = NULL) {
         if ( $obj == NULL) {
             $obj = $this->model;
         }
-        $this->assertHasRelation($assoc,$obj);
         $ret = call_user_func(array($obj,$assoc));
         $this->assertInstanceOf('\Illuminate\Database\Eloquent\Relations\BelongsTo', $ret);
     }
 
     protected function assertHasMany($assoc, $obj = NULL) {
         if ( $obj == NULL) $obj = $this->model;
-        $this->assertHasRelation($assoc,$obj);
         $ret = call_user_func(array($obj,$assoc));
         $this->assertTrue($ret instanceof \Illuminate\Database\Eloquent\Relations\HasMany
             || $ret instanceof \Illuminate\Database\Eloquent\Relations\MorphMany, $assoc . ' relation is not a one-to-many');
@@ -54,7 +57,6 @@ trait ModelAssertions {
 
     protected function assertHasOne($assoc, $obj = NULL) {
         if ( $obj == NULL) $obj = $this->model;
-        $this->assertHasRelation($assoc,$obj);
         $ret = call_user_func(array($obj,$assoc));
         $this->assertTrue($ret instanceof \Illuminate\Database\Eloquent\Relations\HasOne 
             || $ret instanceof \Illuminate\Database\Eloquent\Relations\MorphOne, $assoc . ' relation is not a one-to-one');
